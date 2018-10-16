@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>2048</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery/jquery-3.1.1.min.js"></script>
+    <script src="js/showanimation.js"></script>
+    <script src="js/support.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>2048</h1>
+		<div class="header_warpper">
+			<div class="button_wrpper">
+				<button id="SetUp">游戏设置(明日开发10.17)</button>
+				<button id="beginGame">新游戏</button>
+			</div>
+			<div class="data_wrpper">
+				<p>当前难度：<span id="Difficulty_level">一般</span></p>
+				<p>历史最佳：<span id="Maximum_score">0</span></p>
+				<p>当前分数：<span id="score">0</span></p>
+			</div>
+		</div>   
+    </header>
+	<div id="SetUp_Panl">
+		
+	</div>
+    <div id="grid-container">
+        <!--克隆小格子魔板-->
+        <div class="grid-cell" id="grid-cell-model"></div>
+    </div>
+	<!--移动端的方向控制-->
+	<div id="Direction_control">
+		<div class="">
+			<button class="control-btn" id="control_Left">←</button>
+			
+		</div>
+		<div class="">
+			<button class="control-btn" id="control_Up">↑</button>
+			<br/>
+			<button class="control-btn" id="control_Down">↓</button>
+		</div>
+		<div class="">
+			<button class="control-btn" id="control_Right">→</button>
+		</div>
+	</div>
+</body>
+
+</html>

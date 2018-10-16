@@ -1,0 +1,161 @@
+*{
+
+-webkit-touch-callout: none; /* iOS Safari */
+
+-webkit-user-select: none; /* Chrome/Safari/Opera */
+
+-khtml-user-select: none; /* Konqueror */
+
+-moz-user-select: none; /* Firefox */
+
+-ms-user-select: none; /* Internet Explorer/Edge */
+
+user-select: none; /* Non-prefixed version, currently
+
+not supported by any browser */
+
+}
+html,body{
+	margin: 0;
+	padding: 0;
+	background: rgb(230,203,160);
+	height: 100%;
+	overflow: hidden;
+}
+header {
+    display: block;
+    margin: 10px auto;
+    width: 500px;
+    text-align: center;
+}
+
+header h1 {
+    font-family: sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+#beginGame {
+    display: block;
+    margin: 20px auto;
+    width: 100px;
+    padding: 10px 10px;
+    background: #8f7a66;
+    font-family: Arial;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+header #beginGame:hover {
+    background: #9f8b77;
+}
+
+
+#grid-container {
+    width: 500px;
+    height: 500px;
+    border: 1px solid #aaa;
+    margin: 0px auto;
+    background-color: #bbada0;
+    position: relative;
+    border-radius: 10px;
+}
+
+#grid-container .grid-cell {
+    display: inline-block;
+    border: 3px solid #aaa;
+    border-radius: 8px;
+    text-align: center;
+    background: #ccc0b3;
+    font-size: 40px;
+    font-weight: bold;
+    color: aliceblue;
+    position: absolute;
+}
+#Direction_control{
+	position: relative;
+	height: 100px;
+	text-align: center;
+	display: none;
+}
+
+@media screen and (max-width: 1000px) {
+	header{
+		width: 100%;
+		margin: 0px 0px 15px;
+	}
+	header h1 {
+		font-family: sans-serif;
+		font-size: 40px;
+		font-weight: bold;
+		margin-top: 0px;
+		margin-bottom: 15px;
+		border-top: 5px solid rgb(143,122,102);
+		border-bottom: 5px solid rgb(143,122,102);
+	}
+
+	#beginGame ,#SetUp{
+		display: inline-block;
+		margin: 20px auto;
+		padding: 8px 10px;
+		background: #8f7a66;
+		font-family: Arial;
+		color: white;
+		border-radius: 10px;
+		text-decoration: none;
+		font-size: 14px;
+		width: 8em;
+		margin: 2px;
+		outline: none;
+		border: 1px solid #aaa;
+	}
+
+	header #beginGame:hover {
+		background: #9f8b77;
+	}
+
+	.data_wrpper p {
+		text-align: left;
+		font-family: Arial;
+		font-size: 18px;
+		margin: 20px auto;
+		margin: 2px;
+	}
+	
+	.button_wrpper{
+		display: inline-block;
+		width: 40%;
+	}
+	.data_wrpper{
+		display: inline-block;
+		height: 100%;
+		width: 50%;
+	}
+	#grid-container{
+		width: 93%;
+	}
+	#Direction_control{
+		display: block;
+	}
+	#Direction_control>div{
+		display: inline-block;
+		height: 100%;
+		position: relative;
+	}
+	#Direction_control .control-btn{
+		position: relative;
+		font-size: 14px;
+		background: rgb(143,122,102);
+		outline: none;
+		border: none;
+		margin: 1px;
+		border-radius: 50%;
+		padding: 10px;
+		color: aliceblue;
+		font-weight: 700;
+		width: 50px;
+		height: 50px;
+		border: 2px solid #fff;
+	}
+}

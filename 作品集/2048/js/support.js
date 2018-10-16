@@ -11,8 +11,6 @@ function nospace(board) {
 }
 //判断游戏是否结束
 function isOvergame(board) {
-    console.log(nospace(board));
-    console.log(canMoveUp(board), canMoveDown(board), canMoveLeft(board), canMoveRight(board));
     if (!nospace(board) || (canMoveUp(board) || canMoveDown(board) || canMoveLeft(board) || canMoveRight(board)))
         return false;
     //    for (var x = 0; x < board.length; x++) {

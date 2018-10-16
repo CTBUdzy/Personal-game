@@ -5,11 +5,143 @@ var BoxPosition = new Array();
 
 $(function () {
     createCell(); //创建游戏
-    $('#beginGame').click(function () {
+	EventContral();//事件控制
+    $('#beginGame').click(function (e) {
         createCell(); //创建游戏
+		e.stopPropagation();
     });
+	
 })
 
+//事件控制
+function EventContral(){
+	//移动端的滑动控制
+	$(window,'.grid-cell').on("touchstart", function(e) {
+		//console.log(e.touches[0].clientX);
+		e.stopPropagation();
+		var contentmain = $("#grid-container");
+		var down = {
+			x:e.touches[0].clientX,
+			y:e.touches[0].clientY
+		}
+		if(mousePosition(down,contentmain)){ //如果点击点在游戏区域内
+			var up = {};
+			$(window,'.grid-cell').on('touchmove',function(e){
+				up.x = e.touches[0].clientX;
+				up.y = e.touches[0].clientY;
+			});
+			$(window,'.grid-cell').one('touchend',function(e){
+				var dx = up.x - down.x;
+				var dy = up.y - down.y;
+				if(Math.abs(dx) > 30 || Math.abs(dy) > 30){
+					if(dx > 0  && dx > Math.abs(dy)){ //Right
+						if (moveRight()) {
+            				generateOneNumeber(); //新增数字
+        				}
+					}else if(dx < 0  && -dx > Math.abs(dy)){ //left
+						if (moveLeft()) {
+            				generateOneNumeber(); //新增数字
+        				}
+					}else if(dy < 0  && -dy > Math.abs(dx)){  //Up
+						if (moveUp()) {
+            				generateOneNumeber(); //新增数字
+        				}
+					}else if(dy > 0  && dy > Math.abs(dx)){  //Down
+						if (moveDown()) {
+            				generateOneNumeber(); //新增数字
+        				}
+					}
+					viewGameOver();
+				}
+			});
+		}
+	});
+	//PC端的滑动控制
+	$(window,'.grid-cell').mousedown(function(e){
+		var contentmain = $("#grid-container");
+		var down = {
+			x:e.pageX,
+			y:e.pageY
+		}
+		
+		if(mousePosition(down,contentmain)){ //如果点击点在游戏区域内
+			$(window,'.grid-cell').one('mouseup',function(e){
+				var up = {};
+				up.x = e.pageX;
+				up.y = e.pageY;
+				var dx = up.x - down.x;
+				var dy = up.y - down.y;
+				if(Math.abs(dx) > 30 || Math.abs(dy) > 30){
+					if(dx > 0  && dx > Math.abs(dy)){ //Right
+						if (moveRight()) {
+            				generateOneNumeber(); //新增数字
+							viewGameOver();
+        				}
+					}else if(dx < 0  && -dx > Math.abs(dy)){ //left
+						if (moveLeft()) {
+            				generateOneNumeber(); //新增数字
+							viewGameOver();
+        				}
+					}else if(dy < 0  && -dy > Math.abs(dx)){  //Up
+						if (moveUp()) {
+            				generateOneNumeber(); //新增数字
+							viewGameOver();
+        				}
+					}else if(dy > 0  && dy > Math.abs(dx)){  //Down
+						if (moveDown()) {
+            				generateOneNumeber(); //新增数字
+							viewGameOver();
+        				}
+					}
+				}
+			});
+		}
+	});
+	
+	//按键控制
+	$("#control_Left").click(function(){
+		if (moveLeft()) {
+            generateOneNumeber(); //新增数字
+        }
+		viewGameOver();
+	});
+	$("#control_Right").click(function(){
+		if (moveRight()) {
+            generateOneNumeber(); //新增数字
+        }
+		viewGameOver();
+	});
+	$("#control_Up").click(function(){
+		if (moveUp()) {
+            generateOneNumeber(); //新增数字
+        }
+		viewGameOver();
+	});
+	$("#control_Down").click(function(){
+		if (moveDown()) {
+            generateOneNumeber(); //新增数字
+        }
+		viewGameOver();
+	});
+}
+
+//更新视图判断结束
+function viewGameOver(){
+	updataBoardView();
+		if (isOvergame(board)) {
+        alert('游戏结束，得分：' + score);
+     };
+}
+
+
+//检测鼠标是否在争取区域内
+	function mousePosition(e,element){
+		if(e.x >= element.offset().left && 
+		  e.y >= element.offset().top &&
+		  e.x <= (element.offset().left + element.outerWidth()) &&
+		  e.y <= (element.offset().top + element.outerHeight()))
+			return true;
+	}
 //创建n*n个小格子；
 function createCell() {
     //创建二维数据数组
@@ -23,6 +155,7 @@ function createCell() {
     var margin = box_width / Boardn * 1 / 10;
     var slideWidth = box_width / Boardn * 4 / 5;
     $("#grid-container").css('padding', margin + 'px');
+    $("#grid-container").css('height', box_width + 'px');
     //设置字体大小
     $("#grid-container .grid-cell").css({
         lineHeight: slideWidth - 6 + 'px',
@@ -142,45 +275,36 @@ function updataBoardView() {
 }
 
 
-//检测玩家相应
+//检测玩家相应(PC端的上下左右控制)
 $(document).keydown(function (event) {
     switch (event.keyCode) {
     case 37: //left
         if (moveLeft()) {
             generateOneNumeber(); //新增数字
-            if (isOvergame(board)) {
-                alert('游戏结束，得分：' + score);
-            }
         }
         break;
     case 38: //up
         if (moveUp()) {
             generateOneNumeber(); //新增数字
-            if (isOvergame(board)) {
-                alert('游戏结束，得分：' + score);
-            }
         }
         break;
     case 39: //right
         if (moveRight()) {
             generateOneNumeber(); //新增数字
-            if (isOvergame(board)) {
-                alert('游戏结束，得分：' + score);
-            }
         }
         break;
     case 40: //down
         if (moveDown()) {
-            generateOneNumeber(); //新增数字
-            if (isOvergame(board)) {
-                alert('游戏结束，得分：' + score);
-            }
+            generateOneNumeber(); //新增数字 
         }
         break;
     default:
         break;
     }
     updataBoardView();
+	if (isOvergame(board)) {
+        alert('游戏结束，得分：' + score);
+     };
     //    if (!isOvergame(board)) {
     //        alert('游戏结束，得分：' + score);
     //    }
